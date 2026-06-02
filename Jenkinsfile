@@ -25,7 +25,8 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 sh 'docker rm -f student-app || true'
-                sh 'docker run -d --name student-app -p 8080:8080 student-management:v1'
+                sh 'docker run -d --name student-app -p 8081:8080 student-management:v1'
+                
             }
         }
 
