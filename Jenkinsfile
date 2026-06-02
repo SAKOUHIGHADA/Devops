@@ -19,8 +19,8 @@ pipeline {
  stages {
  stage('Code Checkout') {
  steps {
- git branch: 'master',
- url: 'https://github.com/hwafa/atelier-jenkins.git',
+ git branch: 'main',
+ url: 'https://github.com/SAKOUHIGHADA/Devops.git',
  credentialsId: 'jenkins-example-github-pat'
  }
  }
