@@ -10,9 +10,22 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Maven') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t student-management:v1 .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker rm -f student-app || true'
+                sh 'docker run -d --name student-app -p 8080:8080 student-management:v1'
             }
         }
 
