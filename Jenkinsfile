@@ -18,8 +18,10 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                 withSonarQubeEnv('sonarqube') {
-                      sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
+               withSonarQubeEnv('sonarqube') {
+                 withCredentials([string(credentialsId: 'jenkins-token', variable: 'SONAR_TOKEN')]) {
+                     sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
+            }
         }
     }
 }
