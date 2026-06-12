@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.studentmanagement.entities.Department;
 import tn.esprit.studentmanagement.services.DepartmentService;
 import tn.esprit.studentmanagement.services.IDepartmentService;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,7 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 public class DepartmentController {
     private IDepartmentService departmentService;
-
+    @Getter
+    @Setter
+    public class DepartmentDTO {
+    private String name;
+}
     @GetMapping("/getAllDepartment")
     public List<Department> getAllDepartment() { return departmentService.getAllDepartments(); }
 
@@ -25,7 +31,6 @@ public class DepartmentController {
 
     DepartmentDTO dto = new DepartmentDTO();
     dto.setName(d.getName());
-
     return dto;
 }
 
