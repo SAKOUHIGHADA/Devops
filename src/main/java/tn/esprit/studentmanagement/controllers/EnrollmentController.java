@@ -6,7 +6,6 @@ import tn.esprit.studentmanagement.entities.Enrollment;
 import tn.esprit.studentmanagement.services.IEnrollment;
 import tn.esprit.studentmanagement.entities.EnrollmentDTO;
 
-
 import java.util.List;
 
 @RestController
@@ -14,36 +13,41 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class EnrollmentController {
+
     IEnrollment enrollmentService;
+
     @GetMapping("/getAllEnrollment")
-    public List<Enrollment> getAllEnrollment() { return enrollmentService.getAllEnrollments(); }
+    public List<Enrollment> getAllEnrollment() {
+        return enrollmentService.getAllEnrollments();
+    }
 
-  @GetMapping("/getEnrollment/{id}")
-public EnrollmentDTO getEnrollment(@PathVariable Long id) {
+    @GetMapping("/getEnrollment/{id}")
+    public EnrollmentDTO getEnrollment(@PathVariable Long id) {
+        Enrollment enrollment = enrollmentService.getEnrollmentById(id);
 
-    Enrollment enrollment = enrollmentService.getEnrollmentById(id);
+        EnrollmentDTO dto = new EnrollmentDTO();
+        dto.setId(enrollment.getIdEnrollment());        // ✅ idEnrollment au lieu de id
+        dto.setGrade(enrollment.getGrade());            // ✅ champ qui existe
+        dto.setEnrollmentDate(enrollment.getEnrollmentDate()); // ✅ champ qui existe
 
-    EnrollmentDTO dto = new EnrollmentDTO();
-    dto.setId(enrollment.getId());
-    dto.setAcademicYear(enrollment.getAcademicYear());
+        return dto;
+    }
 
-    return dto;
-}
+    @PostMapping("/createEnrollment")
+    public EnrollmentDTO createEnrollment(@RequestBody EnrollmentDTO dto) {
+        Enrollment enrollment = new Enrollment();
+        enrollment.setGrade(dto.getGrade());                        // ✅
+        enrollment.setEnrollmentDate(dto.getEnrollmentDate());      // ✅
 
-@PostMapping("/createEnrollment")
-public EnrollmentDTO createEnrollment(@RequestBody EnrollmentDTO dto) {
+        Enrollment savedEnrollment = enrollmentService.saveEnrollment(enrollment);
 
-    Enrollment enrollment = new Enrollment();
-    enrollment.setAcademicYear(dto.getAcademicYear());
+        EnrollmentDTO response = new EnrollmentDTO();
+        response.setId(savedEnrollment.getIdEnrollment());          // ✅
+        response.setGrade(savedEnrollment.getGrade());              // ✅
+        response.setEnrollmentDate(savedEnrollment.getEnrollmentDate()); // ✅
 
-    Enrollment savedEnrollment = enrollmentService.saveEnrollment(enrollment);
-
-    EnrollmentDTO response = new EnrollmentDTO();
-    response.setId(savedEnrollment.getId());
-    response.setAcademicYear(savedEnrollment.getAcademicYear());
-
-    return response;
-}
+        return response;
+    }
 
     @PutMapping("/updateEnrollment")
     public Enrollment updateEnrollment(@RequestBody Enrollment enrollment) {
@@ -52,5 +56,6 @@ public EnrollmentDTO createEnrollment(@RequestBody EnrollmentDTO dto) {
 
     @DeleteMapping("/deleteEnrollment/{id}")
     public void deleteEnrollment(@PathVariable Long id) {
-        enrollmentService.deleteEnrollment(id); }
+        enrollmentService.deleteEnrollment(id);
+    }
 }

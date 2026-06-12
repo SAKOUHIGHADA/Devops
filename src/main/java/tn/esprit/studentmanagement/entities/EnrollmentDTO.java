@@ -2,11 +2,12 @@ package tn.esprit.studentmanagement.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 public class EnrollmentDTO {
-
-    private String academicYear;
-
+    private Long id;                  // ✅ ajouté
+    private LocalDate enrollmentDate; // ✅ ajouté
+    private Double grade;             // ✅ ajouté
 }

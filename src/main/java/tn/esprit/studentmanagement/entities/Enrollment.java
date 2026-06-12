@@ -2,7 +2,7 @@ package tn.esprit.studentmanagement.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import lombok.Data;    
 import java.time.LocalDate;
 
 @Entity
@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Data   
 public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
