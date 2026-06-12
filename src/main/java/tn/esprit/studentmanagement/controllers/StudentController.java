@@ -2,9 +2,10 @@ package tn.esprit.studentmanagement.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.studentmanagement.dto.StudentDTO;
+
 import tn.esprit.studentmanagement.entities.Student;
 import tn.esprit.studentmanagement.services.IStudentService;
+import tn.esprit.studentmanagement.entities.StudentDTO;
 
 
 import java.util.List;
