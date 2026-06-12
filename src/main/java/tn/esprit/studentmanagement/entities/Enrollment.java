@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Enrollment {
+public class EnrollmentDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEnrollment;
