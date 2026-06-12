@@ -39,9 +39,7 @@ public class DepartmentController {
     public Department updateDepartment(@RequestBody Department department) {
         return departmentService.saveDepartment(department);
     }
-    public class DepartmentDTO {
-    private String name;
-    }
+   
     @DeleteMapping("/deleteDepartment/{id}")
     public void deleteDepartment(@PathVariable Long id) {
       departmentService.deleteDepartment(id); }
