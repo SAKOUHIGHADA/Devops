@@ -49,13 +49,26 @@ public class EnrollmentController {
         return response;
     }
 
-    @PutMapping("/updateEnrollment")
-    public Enrollment updateEnrollment(@RequestBody Enrollment enrollment) {
-        return enrollmentService.saveEnrollment(enrollment);
-    }
+    @PutMapping("/updateEnrollment/{id}")
+public EnrollmentDTO updateEnrollment(@PathVariable Long id, @RequestBody EnrollmentDTO dto) {
+    
+    Enrollment enrollment = enrollmentService.getEnrollmentById(id);
+    
+    enrollment.setGrade(dto.getGrade());
+    enrollment.setEnrollmentDate(dto.getEnrollmentDate());
 
-    @DeleteMapping("/deleteEnrollment/{id}")
-    public void deleteEnrollment(@PathVariable Long id) {
-        enrollmentService.deleteEnrollment(id);
-    }
+    Enrollment updatedEnrollment = enrollmentService.saveEnrollment(enrollment);
+
+    EnrollmentDTO response = new EnrollmentDTO();
+    response.setId(updatedEnrollment.getIdEnrollment());
+    response.setGrade(updatedEnrollment.getGrade());
+    response.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
+
+    return response;
+}
+
+@DeleteMapping("/deleteEnrollment/{id}")
+public void deleteEnrollment(@PathVariable Long id) {
+    enrollmentService.deleteEnrollment(id);
+}
 }

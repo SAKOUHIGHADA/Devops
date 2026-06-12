@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public class EnrollmentService implements IEnrollment {
-    @Autowired
-    EnrollmentRepository enrollmentRepository;
+@RequiredArgsConstructor
+    private final EnrollmentRepository enrollmentRepository;
 
     @Override
     public List<Enrollment> getAllEnrollments() {
@@ -19,8 +19,12 @@ public class EnrollmentService implements IEnrollment {
 
     @Override
     public Enrollment getEnrollmentById(Long idEnrollment) {
-        return enrollmentRepository.findById(idEnrollment).get();
+        // ✅ Corrigé — plus de .get() sans vérification
+        return enrollmentRepository.findById(idEnrollment)
+                .orElseThrow(() -> new RuntimeException(
+                    "Enrollment not found with id: " + idEnrollment));
     }
+
 
     @Override
     public Enrollment saveEnrollment(Enrollment enrollment) {

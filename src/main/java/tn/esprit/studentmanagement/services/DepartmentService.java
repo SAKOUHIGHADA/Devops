@@ -8,20 +8,22 @@ import tn.esprit.studentmanagement.repositories.DepartmentRepository;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor   
 
 public class DepartmentService implements IDepartmentService {
-    @Autowired
-    DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }
 
-    @Override
+   @Override
     public Department getDepartmentById(Long idDepartment) {
-        return departmentRepository.findById(idDepartment).get();
-    }
+        return departmentRepository.findById(idDepartment)
+            .orElseThrow(() -> new RuntimeException(
+                "Department not found with id: " + idDepartment));
+  }
 
     @Override
     public Department saveDepartment(Department department) {

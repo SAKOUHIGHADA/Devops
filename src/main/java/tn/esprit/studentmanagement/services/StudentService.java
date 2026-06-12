@@ -10,7 +10,8 @@ import java.util.List;
 
 @Service
 public class StudentService implements IStudentService {
-    @Autowired
+   @RequiredArgsConstructor
+    private final StudentRepository studentRepository;
     private StudentRepository studentRepository;
     public List<Student> getAllStudents() { return studentRepository.findAll(); }
     public Student getStudentById(Long id) { return studentRepository.findById(id).orElse(null); }
