@@ -15,16 +15,16 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-        
+
         stage('SonarQube Analysis') {
             steps {
-               withSonarQubeEnv('sonarqube') {
-                 withCredentials([string(credentialsId: 'jenkins-token', variable: 'SONAR_TOKEN')]) {
-                     sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
+                withSonarQubeEnv('sonarqube') {
+                    withCredentials([string(credentialsId: 'jenkins-token', variable: 'SONAR_TOKEN')]) {
+                        sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
+                    }
+                }
             }
         }
-    }
-}
 
         stage('Build Docker Image') {
             steps {
@@ -32,14 +32,12 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'docker rm -f student-app || true'
-                sh 'docker run -d --name student-app -p 8081:8080 student-management:v1'
-                
+                sh 'kubectl apply -f mysql-deployment.yaml -n devops'
+                sh 'kubectl apply -f spring-deployment.yaml -n devops'
             }
         }
-
     }
 
     post {
