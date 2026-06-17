@@ -34,10 +34,12 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-               sh 'kubectl apply -f k8s/mysql-deployment.yaml -n devops'
-               sh 'kubectl apply -f k8s/spring-deployment.yaml -n devops'
-    }
-}
+                sh 'kubectl apply -f k8s/mysql-deployment.yaml -n devops'
+                sh 'kubectl apply -f k8s/spring-deployment.yaml -n devops'
+            }
+        }
+
+    } // ✅ ferme stages
 
     post {
         always {
@@ -52,4 +54,5 @@ pipeline {
             echo 'BUILD FAILED'
         }
     }
-}
+
+} // ✅ ferme pipeline
