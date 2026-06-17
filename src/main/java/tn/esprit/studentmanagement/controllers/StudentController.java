@@ -1,14 +1,11 @@
 package tn.esprit.studentmanagement.controllers;
-
 import lombok.AllArgsConstructor;
-
 import tn.esprit.studentmanagement.entities.Student;
 import tn.esprit.studentmanagement.services.IStudentService;
 import tn.esprit.studentmanagement.entities.StudentDTO;
-
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/students")

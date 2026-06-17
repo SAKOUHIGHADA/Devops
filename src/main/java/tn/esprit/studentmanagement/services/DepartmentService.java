@@ -1,10 +1,9 @@
 package tn.esprit.studentmanagement.services;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.studentmanagement.entities.Department;
 import tn.esprit.studentmanagement.repositories.DepartmentRepository;
-
+import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Service
