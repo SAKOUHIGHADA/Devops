@@ -6,6 +6,7 @@ import tn.esprit.studentmanagement.services.DepartmentService;
 import tn.esprit.studentmanagement.services.IDepartmentService;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
