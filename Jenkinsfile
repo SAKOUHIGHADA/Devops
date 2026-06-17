@@ -1,12 +1,26 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "student-management:v1"
+        NAMESPACE = "devops"
+    }
+
     stages {
 
         stage('Code Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/SAKOUHIGHADA/Devops.git'
+            }
+        }
+
+        stage('Debug Workspace') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -type f -name "*.yaml"'
+                sh 'find . -type d -name "k8s"'
             }
         }
 
@@ -28,33 +42,16 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t student-management:v1 .'
+                sh "docker build -t ${IMAGE_NAME} ."
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/mysql-deployment.yaml -n devops'
-                sh 'kubectl apply -f k8s/spring-deployment.yaml -n devops'
+                sh "kubectl apply -f k8s/ -n ${NAMESPACE}"
             }
         }
-       stage('Debug Workspace') {
-          steps {
-              sh 'pwd'
-              sh 'ls -la'
-              sh 'ls -R'
-            }
-        }
-    } // ✅ ferme stages
-    
-        stage('Verify K8s files') {
-    steps {
-        sh 'pwd'
-        sh 'ls -la'
-        sh 'find . -maxdepth 3 -type f -name "*.yaml"'
-        sh 'find . -maxdepth 3 -type d -name "k8s"'
     }
-}
 
     post {
         always {
@@ -69,5 +66,4 @@ pipeline {
             echo 'BUILD FAILED'
         }
     }
-
-} // ✅ ferme pipeline
+}
