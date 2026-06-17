@@ -17,6 +17,7 @@ public class DepartmentController {
     private IDepartmentService departmentService;
     @Getter
     @Setter
+    @Data
     public class DepartmentDTO {
     private String name;
 }

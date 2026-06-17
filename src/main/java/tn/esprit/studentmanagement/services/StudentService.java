@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService implements IStudentService {
-   @RequiredArgsConstructor
+   
     private final StudentRepository studentRepository;
     public List<Student> getAllStudents() { return studentRepository.findAll(); }
     public Student getStudentById(Long id) { return studentRepository.findById(id).orElse(null); }
