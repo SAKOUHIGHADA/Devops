@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.studentmanagement.entities.Enrollment;
 import tn.esprit.studentmanagement.services.IEnrollment;
 import tn.esprit.studentmanagement.entities.EnrollmentDTO;
-
+import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RestController

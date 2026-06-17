@@ -49,19 +49,21 @@ public class StudentController {
 
     // ---- Conversion DTO <-> Entity ----
 
-    private StudentDTO toDTO(Student student) {
-        StudentDTO dto = new StudentDTO();
-        dto.setId(student.getId());
-        dto.setName(student.getName());
-        dto.setEmail(student.getEmail());
-        return dto;
+   private StudentDTO toDTO(Student student) {
+    StudentDTO dto = new StudentDTO();
+    dto.setIdStudent(student.getIdStudent());
+    dto.setFirstName(student.getFirstName());
+    dto.setLastName(student.getLastName());
+    dto.setEmail(student.getEmail());
+    return dto;
     }
 
     private Student toEntity(StudentDTO dto) {
-        Student student = new Student();
-        student.setId(dto.getId());
-        student.setName(dto.getName());
-        student.setEmail(dto.getEmail());
-        return student;
+    Student student = new Student();
+    student.setIdStudent(dto.getIdStudent());
+    student.setFirstName(dto.getFirstName());
+    student.setLastName(dto.getLastName());
+    student.setEmail(dto.getEmail());
+    return student;
     }
 }
