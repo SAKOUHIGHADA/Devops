@@ -38,7 +38,13 @@ pipeline {
                 sh 'kubectl apply -f k8s/spring-deployment.yaml -n devops'
             }
         }
-
+       stage('Debug Workspace') {
+          steps {
+              sh 'pwd'
+              sh 'ls -la'
+              sh 'ls -R'
+            }
+        }
     } // ✅ ferme stages
 
     post {
