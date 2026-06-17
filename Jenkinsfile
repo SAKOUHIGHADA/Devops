@@ -46,6 +46,15 @@ pipeline {
             }
         }
     } // ✅ ferme stages
+    
+        stage('Verify K8s files') {
+    steps {
+        sh 'pwd'
+        sh 'ls -la'
+        sh 'find . -maxdepth 3 -type f -name "*.yaml"'
+        sh 'find . -maxdepth 3 -type d -name "k8s"'
+    }
+}
 
     post {
         always {
